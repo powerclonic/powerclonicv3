@@ -39,7 +39,7 @@
         <h2 class="defaultTitle">Blog</h2>
         <p class="defaultSubtitle">ideias, pensamentos, conhecimentos.</p>
       </div>
-      <v-carousel class="carousel" cycle hide-delimiters>
+      <v-carousel v-if="isPostsLoaded" class="carousel" cycle hide-delimiters>
         <v-carousel-item v-for="(item, index) in posts" :key="index">
           <InfoCard :project="item" />
         </v-carousel-item>
@@ -55,7 +55,7 @@
       </div>
       <div id="contactContainer">
         <div id="formContainer">
-          <v-form @submit.prevent="">
+          <v-form @submit.prevent="" id="form">
             <v-text-field label="Seu nome" outlined dense />
             <v-text-field label="Seu e-mail" outlined dense />
             <v-textarea label="Assunto" outlined dense />
@@ -73,11 +73,23 @@
             ou, se prefeir, entre em contato comigo por alguma de minhas redes
             sociais.
           </p>
-          <v-btn text target="_blank" href="https://linkedin.com/in/matheus-dresch" outlined class="socialButton">
+          <v-btn
+            text
+            target="_blank"
+            href="https://linkedin.com/in/matheus-dresch"
+            outlined
+            class="socialButton"
+          >
             LinkedIn
             <v-icon>mdi-open-in-new</v-icon>
           </v-btn>
-          <v-btn text target="_blank" href="https://instagram.com/powermatheuss" outlined class="socialButton">
+          <v-btn
+            text
+            target="_blank"
+            href="https://instagram.com/powermatheuss"
+            outlined
+            class="socialButton"
+          >
             Instagram
             <v-icon>mdi-open-in-new</v-icon>
           </v-btn>
@@ -95,74 +107,45 @@
 
 <script>
 import InfoCard from "@/components/InfoCard.vue";
+import axios from "axios";
 
 export default {
   name: "HomeView",
   data() {
     return {
-      projects: [
-        {
-          title: "Lorem ipsum",
-          info: "Site",
-          link: "https://google.com",
-          image:
-            "https://static.vecteezy.com/system/resources/previews/004/877/163/original/location-pin-pointer-doodle-illustration-isolated-on-white-free-vector.jpg",
-        },
-        {
-          title: "Lorem ipsum",
-          info: "Site",
-          link: "https://google.com",
-          image:
-            "https://static.vecteezy.com/system/resources/previews/004/877/163/original/location-pin-pointer-doodle-illustration-isolated-on-white-free-vector.jpg",
-        },
-        {
-          title: "Lorem ipsum",
-          info: "Site",
-          link: "https://google.com",
-          image:
-            "https://static.vecteezy.com/system/resources/previews/004/877/163/original/location-pin-pointer-doodle-illustration-isolated-on-white-free-vector.jpg",
-        },
-        {
-          title: "Lorem ipsum",
-          info: "Site",
-          link: "https://google.com",
-          image:
-            "https://static.vecteezy.com/system/resources/previews/004/877/163/original/location-pin-pointer-doodle-illustration-isolated-on-white-free-vector.jpg",
-        },
-      ],
-      posts: [
-        {
-          title: "Lorem ipsum",
-          info: new Date().toLocaleDateString("pt-br"),
-          link: "https://google.com",
-          image:
-            "https://static.vecteezy.com/system/resources/previews/004/877/163/original/location-pin-pointer-doodle-illustration-isolated-on-white-free-vector.jpg",
-        },
-        {
-          title: "Lorem ipsum",
-          info: new Date().toLocaleDateString("pt-br"),
-          link: "https://google.com",
-          image:
-            "https://static.vecteezy.com/system/resources/previews/004/877/163/original/location-pin-pointer-doodle-illustration-isolated-on-white-free-vector.jpg",
-        },
-        {
-          title: "Lorem ipsum",
-          info: new Date().toLocaleDateString("pt-br"),
-          link: "https://google.com",
-          image:
-            "https://static.vecteezy.com/system/resources/previews/004/877/163/original/location-pin-pointer-doodle-illustration-isolated-on-white-free-vector.jpg",
-        },
-        {
-          title: "Lorem ipsum",
-          info: new Date().toLocaleDateString("pt-br"),
-          link: "https://google.com",
-          image:
-            "https://static.vecteezy.com/system/resources/previews/004/877/163/original/location-pin-pointer-doodle-illustration-isolated-on-white-free-vector.jpg",
-        },
-      ],
+      loading: false,
+      projects: [],
+      posts: [],
     };
   },
+
   components: { InfoCard },
+
+  methods: {
+    loadInfo: async function () {
+      this.loading = true;
+
+      try {
+        const res = await axios.get("http://localhost:8081/api/posts");
+
+        this.posts = res.data.data;
+      } catch (err) {
+        console.log(err);
+      } finally {
+        this.loading = false;
+      }
+    },
+  },
+
+  computed: {
+    isPostsLoaded() {
+      return this.posts.length > 0;
+    }
+  },
+
+  mounted() {
+    this.loadInfo();
+  },
 };
 </script>
 

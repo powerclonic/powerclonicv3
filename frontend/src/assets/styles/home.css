@@ -74,6 +74,11 @@
 /* ? SEÇÃO CONTATO */
 #formContainer {
   width: 45%;
+
+  background-color: #CCC1;
+
+  padding: 12px;
+  border-radius: 12px;
 }
 
 #formButton {
