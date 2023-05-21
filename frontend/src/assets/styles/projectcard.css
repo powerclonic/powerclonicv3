@@ -1,0 +1,41 @@
+.card {
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+
+    display: flex;
+    flex-direction: column;
+
+    background-size: cover;
+    background-position: 50%;
+}
+
+.cardDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    background-image: linear-gradient( transparent 60%, var(--dark-gray));
+    
+    padding: 8px;
+
+    height: 100%;
+}
+
+.cardTitle {
+    font-family: 'Montserrat', 'Arial', sans-serif;
+    font-size: 3rem;
+
+    color: var(--white);
+
+    margin: 0;
+}
+
+.cardInfo {
+    font-family: 'Roboto', sans-serif;
+    font-size: 3rem;
+
+    color: var(--gray);
+
+    margin: 0 !important;
+}
