@@ -1,12 +1,16 @@
 FROM node:lts-alpine as build-stage
+
 WORKDIR /app
+
 COPY package*.json ./
 RUN npm install
+
 COPY . .
-RUN npm run build
 
 ARG VUE_APP_BASE_API
 ENV VUE_APP_BASE_API=$VUE_APP_BASE_API
+
+RUN npm run build
 
 FROM nginx:stable-alpine as production-stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html
