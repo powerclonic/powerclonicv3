@@ -5,6 +5,7 @@ pipeline {
         stage('# Create backup #') {
             steps {
                 echo '--> Copying files for backup'
+                sh 'chmod -R 755 /var/www/'
                 sh 'mkdir -p /var/www/backup/powerclonic.xyz/'
                 sh 'cp -r /var/www/powerclonic.xyz /var/www/backup/powerclonic.xyz/'
                 echo '--> Finished files for backup'
