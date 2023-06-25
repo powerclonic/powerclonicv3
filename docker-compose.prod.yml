@@ -19,7 +19,7 @@ services:
       context: frontend
       dockerfile: Dockerfile.prod
       args:
-        - VUE_APP_BASE_API: "https://api.powerclonic.xyz"
+        - "VUE_APP_BASE_API=https://api.powerclonic.xyz"
     volumes:
       - "./frontend:/app"
     container_name: powerclonic-frontend
