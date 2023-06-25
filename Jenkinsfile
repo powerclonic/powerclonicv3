@@ -33,11 +33,4 @@ pipeline {
             }
         }
     }
-    post {
-        success {
-            echo '---> Restarting nginx'
-            sh 'systemctl restart nginx'
-            echo '---> Restarted nginx'
-        }
-    }
 }
