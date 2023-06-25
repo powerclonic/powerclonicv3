@@ -16,7 +16,9 @@ RUN sed -ri -e 's!/var/www/!/var/www/html/public!g' /etc/apache2/apache2.conf /e
 RUN a2enmod rewrite headers
 RUN chmod -R 777 .
 
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+RUN composer install
+
 RUN php artisan cache:clear
 RUN php artisan config:clear
-
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
