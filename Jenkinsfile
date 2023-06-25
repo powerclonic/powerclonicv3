@@ -1,6 +1,9 @@
 /* groovylint-disable CompileStatic */
 pipeline {
     agent any
+    options {
+        skipDefaultCheckout()
+    }
     stages {
         stage('# Repository Checkout #') {
             steps {
