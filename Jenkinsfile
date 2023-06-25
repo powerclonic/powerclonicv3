@@ -5,7 +5,6 @@ pipeline {
         stage('# Create backup #') {
             steps {
                 echo '--> Copying files for backup'
-                sh 'chmod -R 755 /var/www/'
                 sh 'mkdir -p /var/www/backup/powerclonic.xyz/'
                 sh 'cp -r /var/www/powerclonic.xyz /var/www/backup/powerclonic.xyz/'
                 echo '--> Finished files for backup'
@@ -44,12 +43,12 @@ pipeline {
             sh 'systemctl restart nginx'
             echo '---> Restarted nginx'
             echo '---> Deleting backup files'
-            sh 'rm -rf /var/www/backup/powerclonic.xyz'
+            sh 'rm -r /var/www/backup/powerclonic.xyz'
             echo '---> Deleted backup files'
         }
         failure {
             echo '---> Deleting new files'
-            sh 'rm -r /var/www/powerclonic.xyz/'
+            sh 'find /var/www/powerclonic.xyz/ -not -path "/var/www/powerclonic.xyz/nginx/*" -delete'
             echo '---> Deleted new files'
             echo '---> Restoring old files'
             sh 'cp -r /var/www/backup/powerclonic.xyz/ /var/www/powerclonic.xyz/'
