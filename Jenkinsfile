@@ -20,6 +20,7 @@ pipeline {
             steps {
                 echo '---> Copying files'
                 sh 'cp -r * /var/www/powerclonic.xyz'
+                sh 'cp /var/www/env/powerclonicxyz.env /var/www/powerclonic.xyz/backend/.env'
                 echo '---> Finished copying files'
             }
         }
