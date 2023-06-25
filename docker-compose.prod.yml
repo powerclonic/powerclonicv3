@@ -18,6 +18,8 @@ services:
     build:
       context: frontend
       dockerfile: Dockerfile.prod
+      args:
+        - VUE_APP_BASE_API: "https://api.powerclonic.xyz"
     volumes:
       - "./frontend:/app"
     container_name: powerclonic-frontend
@@ -25,8 +27,6 @@ services:
       - "7070:80"
     networks:
       - powerclonic-network
-    args:
-      - VUE_APP_BASE_API: "https://api.powerclonic.xyz"
 
 networks:
   powerclonic-network:
