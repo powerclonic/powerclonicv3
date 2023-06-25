@@ -3,32 +3,34 @@ version: '3'
 services:
 
   # Laravel service
-  api:
+  backend:
     build: ./backend
     container_name: powerclonic-api
     ports:
       - "7000:80"
     volumes:
       - "./backend:/var/www/html"
-    # depends_on:
-    #   - database
+    depends_on:
+      - database
     networks:
       - powerclonic-network
     
   # Database service
-  # database:
-  #   image: mysql:8
-  #   container_name: powerclonic-database
-  #   ports:
-  #     - "3306:3306"
-  #   environment:
-  #     - "MYSQL_ROOT_PASSWORD=root"
-  #   networks:
-  #     - powerclonic-network
+  database:
+    image: mysql:8
+    container_name: powerclonic-database
+    ports:
+      - "3306:3306"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root"
+    networks:
+      - powerclonic-network
 
   # Node service
   frontend:
-    build: ./frontend/Dockerfile.prod
+    build:
+      context: frontend
+      dockerfile: Dockerfile.prod
     volumes:
       - "./frontend:/app"
     container_name: powerclonic-frontend
@@ -38,17 +40,17 @@ services:
       - powerclonic-network
 
   # Database admin Service
-  # dbadmin:
-  #   image: phpmyadmin/phpmyadmin
-  #   restart: "no"
-  #   container_name: powerclonic-dbadmin
-  #   ports:
-  #     - "8085:80"
-  #   environment:
-  #     PMA_HOST: database
-  #     PMA_PORT: 3306 
-  #   networks:
-  #     - powerclonic-network
+  dbadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: "no"
+    container_name: powerclonic-dbadmin
+    ports:
+      - "8085:80"
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306 
+    networks:
+      - powerclonic-network
 
 networks:
   powerclonic-network:
