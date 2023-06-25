@@ -22,6 +22,7 @@ pipeline {
         }
         stage('# Copy files #') {
             steps {
+                sh 'ls'
                 echo '---> Copying files'
                 sh 'cp -r * /var/www/powerclonic.xyz'
                 echo '---> Finished copying files'
