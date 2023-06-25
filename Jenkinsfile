@@ -38,36 +38,20 @@ pipeline {
     }
     post {
         success {
-            stage('# Restart nginx #') {
-                steps {
-                    echo '---> Restarting nginx'
-                    sh 'sudo systemctl restart nginx'
-                    echo '---> Restarted nginx'
-                }
-            }
-            stage('# Delete backup files #') {
-                steps {
-                    echo '---> Deleting backup files'
-                    sh 'sudo rm -rf /var/www/backup/powerclonic.xyz'
-                    echo '---> Deleted backup files'
-                }
-            }
+            echo '---> Restarting nginx'
+            sh 'sudo systemctl restart nginx'
+            echo '---> Restarted nginx'
+            echo '---> Deleting backup files'
+            sh 'sudo rm -rf /var/www/backup/powerclonic.xyz'
+            echo '---> Deleted backup files'
         }
         failure {
-            stage('# Delete new files #') {
-                steps {
-                    echo '---> Deleting new files'
-                    sh 'sudo rm -r /var/www/powerclonic.xyz/'
-                    echo '---> Deleted new files'
-                }
-            }
-            stage('# Restore old files #') {
-                steps {
-                    echo '---> Restoring old files'
-                    sh 'sudo cp -r /var/www/backup/powerclonic.xyz/ /var/www/powerclonic.xyz/'
-                    echo '---> Restored old files'
-                }
-            }
+            echo '---> Deleting new files'
+            sh 'sudo rm -r /var/www/powerclonic.xyz/'
+            echo '---> Deleted new files'
+            echo '---> Restoring old files'
+            sh 'sudo cp -r /var/www/backup/powerclonic.xyz/ /var/www/powerclonic.xyz/'
+            echo '---> Restored old files'
         }
     }
 }
