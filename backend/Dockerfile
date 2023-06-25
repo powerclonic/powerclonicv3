@@ -14,8 +14,8 @@ RUN sed -ri -e 's!/var/www/html!/var/www/html/public!' /etc/apache2/sites-availa
 RUN sed -ri -e 's!/var/www/!/var/www/html/public!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
 RUN a2enmod rewrite headers
-RUN chmod -R 777 ./storage
+RUN chmod -R 777 .
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-RUN composer install
+RUN /usr/bin/composer install
