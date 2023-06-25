@@ -25,7 +25,7 @@ pipeline {
         }
         stage('# Remove dist dir') {
             steps {
-                sh 'rmdir /var/www/powerclonic.xyz/dist'
+                sh 'rmdir /var/www/powerclonic.xyz/frontend/dist'
             }
         }
         stage('# Restart docker compose #') {
