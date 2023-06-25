@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo '--> Copying files for backup'
                 sh 'mkdir -p /var/www/backup/powerclonic.xyz/'
-                sh 'cp -r /var/www/powerclonic.xyz /var/www/backup/powerclonic.xyz/'
+                sh 'cp -r /var/www/powerclonic.xyz/ /var/www/backup/'
                 echo '--> Finished files for backup'
             }
         }
@@ -51,7 +51,7 @@ pipeline {
             sh 'find /var/www/powerclonic.xyz/ -not -path "/var/www/powerclonic.xyz/nginx/*" -delete'
             echo '---> Deleted new files'
             echo '---> Restoring old files'
-            sh 'cp -r /var/www/backup/powerclonic.xyz/ /var/www/powerclonic.xyz/'
+            sh 'cp -r /var/www/backup/powerclonic.xyz/ /var/www/'
             echo '---> Restored old files'
         }
     }
