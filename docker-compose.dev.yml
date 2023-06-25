@@ -28,12 +28,12 @@ services:
 
   # Node service
   frontend:
-    build: ./frontend
+    build: ./frontend/Dockerfile.dev
     volumes:
       - "./frontend:/app"
     container_name: powerclonic-frontend
     ports: 
-      - "7070:80"
+      - "7070:8080"
     networks:
       - powerclonic-network
 

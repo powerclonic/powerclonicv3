@@ -28,7 +28,7 @@ pipeline {
                 echo '---> Restarting docker compose'
                 sh 'cd /var/www/powerclonic.xyz'
                 sh 'docker compose down'
-                sh 'docker compose up --build -d'
+                sh 'docker compose up -f docker-compose.prod.yml --build -d'
                 echo '---> Finished restarting docker compose'
             }
         }
