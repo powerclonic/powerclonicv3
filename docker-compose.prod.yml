@@ -10,19 +10,6 @@ services:
       - "7000:80"
     volumes:
       - "./backend:/var/www/html"
-    depends_on:
-      - database
-    networks:
-      - powerclonic-network
-    
-  # Database service
-  database:
-    image: mysql:8
-    container_name: powerclonic-database
-    ports:
-      - "3306:3306"
-    environment:
-      - "MYSQL_ROOT_PASSWORD=root"
     networks:
       - powerclonic-network
 
@@ -36,19 +23,6 @@ services:
     container_name: powerclonic-frontend
     ports: 
       - "7070:80"
-    networks:
-      - powerclonic-network
-
-  # Database admin Service
-  dbadmin:
-    image: phpmyadmin/phpmyadmin
-    restart: "no"
-    container_name: powerclonic-dbadmin
-    ports:
-      - "8085:80"
-    environment:
-      PMA_HOST: database
-      PMA_PORT: 3306 
     networks:
       - powerclonic-network
 
