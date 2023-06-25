@@ -12,21 +12,21 @@ services:
       - "./backend:/var/www/html"
     command: 
       - "composer install"
-    depends_on:
-      - database
+    # depends_on:
+    #   - database
     networks:
       - powerclonic-network
     
   # Database service
-  database:
-    image: mysql:8
-    container_name: powerclonic-database
-    ports:
-      - "3306:3306"
-    environment:
-      - "MYSQL_ROOT_PASSWORD=root"
-    networks:
-      - powerclonic-network
+  # database:
+  #   image: mysql:8
+  #   container_name: powerclonic-database
+  #   ports:
+  #     - "3306:3306"
+  #   environment:
+  #     - "MYSQL_ROOT_PASSWORD=root"
+  #   networks:
+  #     - powerclonic-network
 
   # Node service
   frontend:
@@ -42,17 +42,17 @@ services:
       - powerclonic-network
 
   # Database admin Service
-  dbadmin:
-    image: phpmyadmin/phpmyadmin
-    restart: "no"
-    container_name: powerclonic-dbadmin
-    ports:
-      - "8085:80"
-    environment:
-      PMA_HOST: database
-      PMA_PORT: 3306 
-    networks:
-      - powerclonic-network
+  # dbadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   restart: "no"
+  #   container_name: powerclonic-dbadmin
+  #   ports:
+  #     - "8085:80"
+  #   environment:
+  #     PMA_HOST: database
+  #     PMA_PORT: 3306 
+  #   networks:
+  #     - powerclonic-network
 
 networks:
   powerclonic-network:
