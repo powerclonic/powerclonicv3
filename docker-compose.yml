@@ -7,11 +7,9 @@ services:
     build: ./backend
     container_name: powerclonic-api
     ports:
-      - "8081:80"
+      - "7000:80"
     volumes:
       - "./backend:/var/www/html"
-    command: 
-      - "composer install"
     # depends_on:
     #   - database
     networks:
@@ -34,7 +32,8 @@ services:
     volumes:
       - "./frontend:/app"
     container_name: powerclonic-frontend
-    command: bash -c "cd app && npm install && npm run build"
+    ports: 
+      - "7070:80"
     networks:
       - powerclonic-network
 

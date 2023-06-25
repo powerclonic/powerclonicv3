@@ -1,14 +1,12 @@
-# Use an official Node.js runtime as a parent image
-FROM node:16
-
-# Set the working directory to /app
+FROM node:lts-alpine as build-stage
 WORKDIR /app
-
-# Copy package.json and package-lock.json to /app
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
-
-# Copy the current directory contents into the container at /app
 COPY . .
+RUN npm run build
+
+# estágio de produção
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
