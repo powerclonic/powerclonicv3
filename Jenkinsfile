@@ -7,7 +7,7 @@ pipeline {
                 echo '---> Performing repository checkout'
                 checkout([
                     $class: 'GitSCM',
-                    branches: [[name: '*/jenkins']],
+                    branches: [[name: 'jenkins']],
                     userRemoteConfigs: [[url: 'https://github.com/powerclonic/powerclonic.xyz.git']]])
                 echo '---> Finished repository checkout'
             }
