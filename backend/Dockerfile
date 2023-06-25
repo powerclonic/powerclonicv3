@@ -11,7 +11,8 @@ RUN apt-get update && apt-get install -y \
     libjpeg62-turbo-dev \
     libpng-dev \
     libwebp-dev \
-    php-zip
+    zip \
+    unzip
 
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl
 
