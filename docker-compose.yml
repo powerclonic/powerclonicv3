@@ -34,7 +34,7 @@ services:
     volumes:
       - "./frontend:/app"
     container_name: powerclonic-frontend
-    command: "npm run build"
+    command: "npm install"
     tty: true
     stdin_open: true
     networks:

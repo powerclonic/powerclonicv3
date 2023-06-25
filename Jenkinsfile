@@ -29,6 +29,7 @@ pipeline {
                 sh 'cd /var/www/powerclonic.xyz'
                 sh 'docker compose down'
                 sh 'docker compose up --build -d'
+                sh 'docker exec powerclonic-frontend npm run build'
                 echo '---> Finished restarting docker compose'
             }
         }
