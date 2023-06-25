@@ -33,5 +33,5 @@ services:
 networks:
   powerclonic-network:
     driver: bridge
-  root-network:
+  root-database_root-network:
     external: true
