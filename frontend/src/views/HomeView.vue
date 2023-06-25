@@ -22,28 +22,45 @@
 
     <article class="section">
       <div class="sectionHeader">
-        <h2 class="defaultTitle">Projetos</h2>
+        <h2 class="defaultTitle">
+          Projetos
+          <v-progress-circular indeterminate color="primary" v-if="loading" />
+        </h2>
         <p class="defaultSubtitle">alguns dos meus projetos.</p>
       </div>
-      <v-carousel class="carousel" cycle hide-delimiters>
+      <v-carousel
+        v-if="!isProjectsEmpty"
+        class="carousel"
+        cycle
+        hide-delimiters
+      >
         <v-carousel-item v-for="(item, index) in projects" :key="index">
           <InfoCard :project="item" />
         </v-carousel-item>
       </v-carousel>
+      <p v-else class="emptyMessage">
+        Não há nada aqui... ainda. <v-icon>mdi-clock</v-icon>
+      </p>
     </article>
 
     <v-divider />
 
     <article class="section">
       <div class="sectionHeader">
-        <h2 class="defaultTitle">Blog</h2>
+        <h2 class="defaultTitle">
+          Blog
+          <v-progress-circular indeterminate color="primary" v-if="loading" />
+        </h2>
         <p class="defaultSubtitle">ideias, pensamentos, conhecimentos.</p>
       </div>
-      <v-carousel v-if="isPostsLoaded" class="carousel" cycle hide-delimiters>
+      <v-carousel v-if="!isPostsEmpty" class="carousel" cycle hide-delimiters>
         <v-carousel-item v-for="(item, index) in posts" :key="index">
           <InfoCard :project="item" />
         </v-carousel-item>
       </v-carousel>
+      <p v-else class="emptyMessage">
+        Não há nada aqui... ainda. <v-icon>mdi-clock</v-icon>
+      </p>
     </article>
 
     <v-divider />
@@ -122,13 +139,26 @@ export default {
   components: { InfoCard },
 
   methods: {
-    loadInfo: async function () {
+    loadPosts: async function () {
       this.loading = true;
 
       try {
         const res = await axios.get("http://localhost:8081/api/posts");
 
-        this.posts = res.data.data;
+        this.posts = res.data;
+      } catch (err) {
+        console.log(err);
+      } finally {
+        this.loading = false;
+      }
+    },
+    loadProjects: async function () {
+      this.loading = true;
+
+      try {
+        const res = await axios.get("http://localhost:8081/api/projects");
+
+        this.projects = res.data;
       } catch (err) {
         console.log(err);
       } finally {
@@ -138,13 +168,17 @@ export default {
   },
 
   computed: {
-    isPostsLoaded() {
-      return this.posts.length > 0;
-    }
+    isPostsEmpty() {
+      return !this.posts.length > 0;
+    },
+    isProjectsEmpty() {
+      return !this.projects.length > 0;
+    },
   },
 
   mounted() {
-    this.loadInfo();
+    this.loadPosts();
+    this.loadProjects();
   },
 };
 </script>
