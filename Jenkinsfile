@@ -14,9 +14,8 @@ pipeline {
         }
         stage('# Copy files #') {
             steps {
-                sh 'sudo -S chmod -R 455 *'
                 echo '---> Copying files'
-                sh 'cp -r * /var/www/powerclonic.xyz'
+                sh 'sudo cp -r * /var/www/powerclonic.xyz'
                 echo '---> Finished copying files'
             }
         }
