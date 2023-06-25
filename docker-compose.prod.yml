@@ -13,6 +13,7 @@ services:
       - "/var/www/env/powerclonicxyz.env:/var/www/html/.env"
     networks:
       - powerclonic-network
+      - root-network
 
   # Node service
   frontend:
