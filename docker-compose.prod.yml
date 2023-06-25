@@ -25,6 +25,8 @@ services:
       - "7070:80"
     networks:
       - powerclonic-network
+    environment:
+      - "VUE_APP_BASE_API": "https://api.powerclonic.xyz"
 
 networks:
   powerclonic-network:
