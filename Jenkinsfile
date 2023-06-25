@@ -8,7 +8,7 @@ pipeline {
                 checkout([
                     $class: 'GitSCM',
                     branches: [[name: 'jenkins']],
-                    userRemoteConfigs: [[url: 'https://github.com/powerclonic/powerclonic.xyz.git']]])
+                    userRemoteConfigs: [[url: 'https://github.com/powerclonic/powerclonicv3.git']]])
                 echo '---> Finished repository checkout'
             }
         }
@@ -24,7 +24,7 @@ pipeline {
                 echo '---> Restarting docker compose'
                 sh 'cd /var/www/powerclonic.xyz'
                 sh 'docker compose down'
-                sh 'docker compose up -d'
+                sh 'docker compose up --build -d'
                 echo '---> Finished restarting docker compose'
             }
         }
