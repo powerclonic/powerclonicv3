@@ -5,7 +5,7 @@ pipeline {
         stage('# Create backup #') {
             steps {
                 echo '--> Copying files for backup'
-                sh 'sudo cp -r /var/www/powerclonic.xyz /var/www/backup/powerclonic.xyz/'
+                sh 'cp -r /var/www/powerclonic.xyz /var/www/backup/powerclonic.xyz/'
                 echo '--> Finished files for backup'
             }
         }
@@ -22,16 +22,16 @@ pipeline {
         stage('# Copy files #') {
             steps {
                 echo '---> Copying files'
-                sh 'sudo cp -r * /var/www/powerclonic.xyz'
+                sh 'cp -r * /var/www/powerclonic.xyz'
                 echo '---> Finished copying files'
             }
         }
         stage('# Restart docker compose #') {
             steps {
                 echo '---> Restarting docker compose'
-                sh 'sudo cd /var/www/powerclonic.xyz'
-                sh 'sudo docker compose down'
-                sh 'sudo docker compose up --build -d'
+                sh 'cd /var/www/powerclonic.xyz'
+                sh 'docker compose down'
+                sh 'docker compose up --build -d'
                 echo '---> Finished restarting docker compose'
             }
         }
@@ -39,18 +39,18 @@ pipeline {
     post {
         success {
             echo '---> Restarting nginx'
-            sh 'sudo systemctl restart nginx'
+            sh 'systemctl restart nginx'
             echo '---> Restarted nginx'
             echo '---> Deleting backup files'
-            sh 'sudo rm -rf /var/www/backup/powerclonic.xyz'
+            sh 'rm -rf /var/www/backup/powerclonic.xyz'
             echo '---> Deleted backup files'
         }
         failure {
             echo '---> Deleting new files'
-            sh 'sudo rm -r /var/www/powerclonic.xyz/'
+            sh 'rm -r /var/www/powerclonic.xyz/'
             echo '---> Deleted new files'
             echo '---> Restoring old files'
-            sh 'sudo cp -r /var/www/backup/powerclonic.xyz/ /var/www/powerclonic.xyz/'
+            sh 'cp -r /var/www/backup/powerclonic.xyz/ /var/www/powerclonic.xyz/'
             echo '---> Restored old files'
         }
     }
