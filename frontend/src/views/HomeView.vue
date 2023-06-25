@@ -143,7 +143,7 @@ export default {
       this.loading = true;
 
       try {
-        const res = await axios.get("http://localhost:8081/api/posts");
+        const res = await axios.get(process.env.VUE_APP_BASE_API + '/api/posts');
 
         this.posts = res.data;
       } catch (err) {
@@ -156,7 +156,7 @@ export default {
       this.loading = true;
 
       try {
-        const res = await axios.get("http://localhost:8081/api/projects");
+        const res = await axios.get(process.env.VUE_APP_BASE_API + '/api/projects');
 
         this.projects = res.data;
       } catch (err) {
