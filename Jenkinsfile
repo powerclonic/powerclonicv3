@@ -33,5 +33,12 @@ pipeline {
                 echo '---> Finished restarting docker compose'
             }
         }
+        stage('# Run composer install #') {
+            steps {
+                echo '---> Installing backend dependencies'
+                sh 'docker exec powerclonic-backend composer install'
+                echo '---> Installed all backend dependencies'
+            }
+        }
     }
 }
