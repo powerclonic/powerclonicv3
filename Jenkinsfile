@@ -8,7 +8,7 @@ pipeline {
         stage('# Repository Checkout #') {
             steps {
                 sh 'ls'
-                sh 'sudo rm -rf*'
+                sh 'sudo rm -rf *'
                 echo '---> Performing repository checkout'
                 checkout([
                     $class: 'GitSCM',
