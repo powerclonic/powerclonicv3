@@ -36,7 +36,7 @@ pipeline {
         stage('# Run composer install #') {
             steps {
                 echo '---> Installing backend dependencies'
-                sh 'docker exec powerclonic-backend composer install'
+                sh 'docker exec powerclonic-api composer install'
                 echo '---> Installed all backend dependencies'
             }
         }
