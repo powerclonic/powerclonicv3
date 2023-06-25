@@ -13,11 +13,4 @@ RUN npm install
 # Copy the current directory contents into the container at /app
 COPY . .
 
-# Set HOST environment variable to 0.0.0.0
-ENV HOST=0.0.0.0
-
-# Expose port 8080 for the app
-EXPOSE 8080
-
-# Start the app with hot-reload enabled
-CMD ["npm", "run", "serve"]
+RUN npm run build
