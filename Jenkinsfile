@@ -23,11 +23,6 @@ pipeline {
                 echo '---> Finished copying files'
             }
         }
-        stage('# Remove dist dir') {
-            steps {
-                sh 'rmdir /var/www/powerclonic.xyz/frontend/dist'
-            }
-        }
         stage('# Restart docker compose #') {
             steps {
                 echo '---> Restarting docker compose'
