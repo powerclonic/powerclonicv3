@@ -26,7 +26,7 @@ services:
     networks:
       - powerclonic-network
     environment:
-      - "VUE_APP_BASE_API": "https://api.powerclonic.xyz"
+      - "VUE_APP_BASE_API=https://api.powerclonic.xyz"
 
 networks:
   powerclonic-network:
