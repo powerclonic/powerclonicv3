@@ -24,7 +24,7 @@
       <div class="sectionHeader">
         <h2 class="defaultTitle">
           Projetos
-          <v-progress-circular indeterminate color="primary" v-if="loading" />
+          <v-progress-circular indeterminate color="primary" v-if="projectsLoading" />
         </h2>
         <p class="defaultSubtitle">alguns dos meus projetos.</p>
       </div>
@@ -49,7 +49,7 @@
       <div class="sectionHeader">
         <h2 class="defaultTitle">
           Blog
-          <v-progress-circular indeterminate color="primary" v-if="loading" />
+          <v-progress-circular indeterminate color="primary" v-if="postsLoading" />
         </h2>
         <p class="defaultSubtitle">ideias, pensamentos, conhecimentos.</p>
       </div>
@@ -130,7 +130,8 @@ export default {
   name: "HomeView",
   data() {
     return {
-      loading: false,
+      postsLoading: false,
+      projectsLoading: false,
       projects: [],
       posts: [],
     };
@@ -140,29 +141,29 @@ export default {
 
   methods: {
     loadPosts: async function () {
-      this.loading = true;
+      this.postsLoading= true;
 
       try {
         const res = await axios.get(process.env.VUE_APP_BASE_API + '/api/posts');
 
-        this.posts = res.data;
+        this.posts = res.data.data;
       } catch (err) {
         console.log(err);
       } finally {
-        this.loading = false;
+        this.postsLoading = false;
       }
     },
     loadProjects: async function () {
-      this.loading = true;
+      this.projectsLoading = true;
 
       try {
         const res = await axios.get(process.env.VUE_APP_BASE_API + '/api/projects');
 
-        this.projects = res.data;
+        this.projects = res.data.data;
       } catch (err) {
         console.log(err);
       } finally {
-        this.loading = false;
+        this.projectsLoading = false;
       }
     },
   },
