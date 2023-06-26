@@ -1,30 +1,48 @@
 <template>
   <div class="home">
-    <header class="section" id="header">
-      <h1 class="defaultTitle" id="headerTitle">POWERCLONIC</h1>
-      <v-btn x-large outlined href="#contactTitle" id="headerButton"
-        >contato</v-btn
-      >
-    </header>
-
-    <article class="section" id="about">
-      <h2 class="defaultTitle" id="aboutTitle">Web Developer</h2>
-      <p id="aboutText">
-        Olá! Sou o Matheus, um desenvolvedor web fullstack. Trabalho com
-        diversas tecnologias, sendo as principais PHP, utilizando o framework
-        Laravel, e JavaScript, utilizando o framework VueJS. Também tenho
-        conhecimento nas áreas de DevOps, com Docker, e na de bancos de dados
-        relacionais com o MySQL.
-      </p>
+    <article class="section fill" id="about">
+      <div>
+        <header id="header">
+          <h1 class="defaultTitle" id="headerTitle">POWERCLONIC</h1>
+          <nav id="headerNav">
+            <v-btn x-large outlined href="#projects" class="headerButton"
+            >projetos</v-btn
+            >
+            
+            <v-btn x-large outlined href="#blog" class="headerButton"
+            >blog</v-btn
+            >
+            
+            <v-btn x-large outlined href="#contact" class="headerButton"
+            >contato</v-btn
+            >
+          </nav>
+        </header>
+      </div>
+      
+      <div>
+        <h2 class="defaultTitle" id="aboutTitle">Web Developer</h2>
+        <p id="aboutText">
+          Olá! Sou o Matheus, um desenvolvedor web fullstack. Trabalho com
+          diversas tecnologias, sendo as principais PHP, utilizando o framework
+          Laravel, e JavaScript, utilizando o framework VueJS. Também tenho
+          conhecimento nas áreas de DevOps, com Docker, e na de bancos de dados
+          relacionais com o MySQL.
+        </p>
+      </div>
     </article>
 
-    <v-divider />
+    <v-divider id="projects"/>
 
-    <article class="section">
+    <article class="section fill">
       <div class="sectionHeader">
         <h2 class="defaultTitle">
           Projetos
-          <v-progress-circular indeterminate color="primary" v-if="projectsLoading" />
+          <v-progress-circular
+            indeterminate
+            color="primary"
+            v-if="projectsLoading"
+          />
         </h2>
         <p class="defaultSubtitle">alguns dos meus projetos.</p>
       </div>
@@ -43,13 +61,17 @@
       </p>
     </article>
 
-    <v-divider />
+    <v-divider id="blog"/>
 
-    <article class="section">
+    <article class="section fill">
       <div class="sectionHeader">
         <h2 class="defaultTitle">
           Blog
-          <v-progress-circular indeterminate color="primary" v-if="postsLoading" />
+          <v-progress-circular
+            indeterminate
+            color="primary"
+            v-if="postsLoading"
+          />
         </h2>
         <p class="defaultSubtitle">ideias, pensamentos, conhecimentos.</p>
       </div>
@@ -63,11 +85,11 @@
       </p>
     </article>
 
-    <v-divider />
+    <v-divider id="contact" />
 
-    <article class="section">
+    <article class="section fill">
       <div class="sectionHeader">
-        <h2 class="defaultTitle" id="contactTitle">Contato</h2>
+        <h2 class="defaultTitle">Contato</h2>
         <p class="defaultSubtitle">fale comigo.</p>
       </div>
       <div id="contactContainer">
@@ -141,10 +163,12 @@ export default {
 
   methods: {
     loadPosts: async function () {
-      this.postsLoading= true;
+      this.postsLoading = true;
 
       try {
-        const res = await axios.get(process.env.VUE_APP_BASE_API + '/api/posts');
+        const res = await axios.get(
+          process.env.VUE_APP_BASE_API + "/api/posts"
+        );
 
         this.posts = res.data.data;
       } catch (err) {
@@ -157,7 +181,9 @@ export default {
       this.projectsLoading = true;
 
       try {
-        const res = await axios.get(process.env.VUE_APP_BASE_API + '/api/projects');
+        const res = await axios.get(
+          process.env.VUE_APP_BASE_API + "/api/projects"
+        );
 
         this.projects = res.data.data;
       } catch (err) {
